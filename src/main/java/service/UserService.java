@@ -41,7 +41,7 @@ public class UserService {
     /*模糊查询用户*/
     public List<CmUser> searchUserName(String userName){
         String hsql = "from CmUser u where u.uname like ?";
-        List<CmUser> data = (List<CmUser>)hibernateTemplate.find(hsql,userName);
+        List<CmUser> data = (List<CmUser>)hibernateTemplate.find(hsql,"%"+userName+"%");
         if(!data.isEmpty()){
             return data;
         }

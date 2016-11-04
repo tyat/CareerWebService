@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pojo.CmUser;
 import service.UserService;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,16 +27,19 @@ public class UserCtrl {
         return "index";
     }
 
+    /*注册用户*/
     @RequestMapping(value = "/register")
     @ResponseBody
-    public Map<String,String> register(String uname, String urname, String upwd, String uemail, String uphone, int urank,int ustate){
-        CmUser myUsers = new CmUser(uname,urname,upwd,uemail,uphone,urank,ustate);
+    public Map<String,String> register(String uname, String urname, String upwd, String uemail, String uphone, int urank,int ustate) throws UnsupportedEncodingException {
+        String tn = new String(urname.getBytes("iso-8859-1"),"utf-8");
+        CmUser myUsers = new CmUser(uname,tn,upwd,uemail,uphone,urank,ustate);
         usersService.addUser(myUsers);
         Map<String,String> data = new HashMap<String,String>();
         data.put("state","0");
         return data;
     }
 
+    /*查找用户*/
     @RequestMapping(value = "/find")
     @ResponseBody
     public CmUser findByUserName(String uname){
@@ -43,6 +47,7 @@ public class UserCtrl {
         return data;
     }
 
+    /*用户登录*/
     @RequestMapping(value = "/login")
     @ResponseBody
     public CmUser login(String uname,String pwd) {
