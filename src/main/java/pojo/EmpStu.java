@@ -1,7 +1,6 @@
 package pojo;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by TianYu on 2016/10/28.
@@ -22,8 +21,9 @@ public class EmpStu {
     private String sassess;
     private Integer sstate;
     private String sdetail;
+    private String cname;
     private String jname;
-    private Timestamp etime;
+    private Date etime;
     private Integer esalary;
     private Boolean ewq;
     private Date eleave;
@@ -32,7 +32,7 @@ public class EmpStu {
     public EmpStu() {
     }
 
-    public EmpStu(Integer sid, String sno, String sname, Boolean ssex, Date sbirth, String spro, Integer sgrade, Integer sclass, String sphone, String semail, String scode, Integer smark, String sassess, Integer sstate, String sdetail, String jname, Timestamp etime, Integer esalary, Boolean ewq, Date eleave, String ereason) {
+    public EmpStu(Integer sid, String sno, String sname, Boolean ssex, Date sbirth, String spro, Integer sgrade, Integer sclass, String sphone, String semail, String scode, Integer smark, String sassess, Integer sstate, String sdetail,String cname, String jname, Date etime, Integer esalary, Boolean ewq, Date eleave, String ereason) {
         this.sid = sid;
         this.sno = sno;
         this.sname = sname;
@@ -48,6 +48,7 @@ public class EmpStu {
         this.sassess = sassess;
         this.sstate = sstate;
         this.sdetail = sdetail;
+        this.cname = cname;
         this.jname = jname;
         this.etime = etime;
         this.esalary = esalary;
@@ -184,11 +185,11 @@ public class EmpStu {
         this.jname = jname;
     }
 
-    public Timestamp getEtime() {
+    public Date getEtime() {
         return etime;
     }
 
-    public void setEtime(Timestamp etime) {
+    public void setEtime(Date etime) {
         this.etime = etime;
     }
 
@@ -222,5 +223,13 @@ public class EmpStu {
 
     public void setEreason(String ereason) {
         this.ereason = ereason;
+    }
+
+    public String getCname() {
+        return cname;
+    }
+
+    public void setCname(String cname) {
+        this.cname = cname;
     }
 }

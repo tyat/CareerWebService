@@ -1,7 +1,7 @@
 package pojo;
 
-import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Created by LENOVO on 2016/10/20.
@@ -15,7 +15,7 @@ public class CmCompany {
     private String cinfo;
     private String cmark;
     private String caddress;
-    private Timestamp ctime;
+    private Date ctime;
     private Integer cstate;
     private CmArea cmAreaByAid;
     private Collection<CmRecruit> cmRecruitsByCid;
@@ -84,11 +84,11 @@ public class CmCompany {
         this.caddress = caddress;
     }
 
-    public Timestamp getCtime() {
+    public Date getCtime() {
         return ctime;
     }
 
-    public void setCtime(Timestamp ctime) {
+    public void setCtime(Date ctime) {
         this.ctime = ctime;
     }
 

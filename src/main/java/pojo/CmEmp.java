@@ -1,14 +1,14 @@
 package pojo;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+
+import java.util.Date;
 
 /**
  * Created by LENOVO on 2016/10/20.
  */
 public class CmEmp {
     private Integer eid;
-    private Timestamp etime;
+    private Date etime;
     private Integer esalary;
     private String einfo;
     private Integer estate;
@@ -27,11 +27,11 @@ public class CmEmp {
         this.eid = eid;
     }
 
-    public Timestamp getEtime() {
+    public Date getEtime() {
         return etime;
     }
 
-    public void setEtime(Timestamp etime) {
+    public void setEtime(Date etime) {
         this.etime = etime;
     }
 

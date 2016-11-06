@@ -65,8 +65,8 @@ public class StudentService {
 
     /*已就业学生信息*/
     public EmpStu listEmpStudent(int sid){
-        String hql = "select new EmpStu (cs.sid,cs.sno,cs.sname,cs.ssex,cs.sbirth,cs.spro,cs.sgrade,cs.class,cs.sphone,cs.semail,cs.scode,cs.smark,cs.sassess,cs.sstate,cs.sdetail,cj.jname,ce.etime,ce.esalary,ce.ewq,ce.eleave,ce.ereason) " +
-                "from CmStudent cs inner join CmJob cj inner join CmEmp ce where cs.sid = ?";
+        String hql = "select new pojo.EmpStu(cs.sid, cs.sno, cs.sname, cs.ssex, cs.sbirth, cs.spro, cs.sgrade, cs.sclass, cs.sphone, cs.semail, cs.scode, cs.smark, cs.sassess, cs.sstate, cs.sdetail, cc.cname, cj.jname, ce.etime, ce.esalary, ce.ewq, ce.eleave, ce.ereason) " +
+                "from pojo.CmStudent cs inner join cs.cmEmpsBySid ce inner join ce.cmJobByJid cj inner join cj.cmRecruitsByJid cr inner join cr.cmCompanyByCid cc where cs.sid = ?";
         List<EmpStu> stu = (List<EmpStu>)hibernateTemplate.find(hql,sid);
         if (!stu.isEmpty()){
             return stu.get(0);
@@ -76,8 +76,8 @@ public class StudentService {
 
     /*未就业学生信息*/
     public UnempStu listUnempStudent(int sid){
-        String hql = "select new UnempStu (cs.sid,cs.sno,cs.sname,cs.ssex,cs.sbirth,cs.spro,cs.sgrade,cs.class,cs.sphone,cs.semail,cs.scode,cs.smark,cs.sassess,cs.sstate,cs.sdetail,cj.jname,ue.esalary,ue.uetime,ue.ueschool,ue.uemajor,ue.uesuccess) " +
-                "from CmStudent cs inner join CmJob cj inner join CmUnemp ue where cs.sid = ?";
+        String hql = "select new pojo.UnempStu(cs.sid,cs.sno,cs.sname,cs.ssex,cs.sbirth,cs.spro,cs.sgrade,cs.class,cs.sphone,cs.semail,cs.scode,cs.smark,cs.sassess,cs.sstate,cs.sdetail,cj.jname,ue.esalary,ue.uetime,ue.ueschool,ue.uemajor,ue.uesuccess) " +
+                "from CmStudent cs inner join cs.cmUnempsBySid ue inner join ue.cmJobByJid cj where cs.sid = ?";
         List<UnempStu> stu = (List<UnempStu>)hibernateTemplate.find(hql,sid);
         if (!stu.isEmpty()){
             return stu.get(0);
@@ -93,7 +93,10 @@ public class StudentService {
                 "and g.glx = 0 " +
                 "and ((g.gfslx = 1 and (g.gcj in ('及格','中','良','优') or g.gbkcj in ('及格','中','良','优'))) or (g.gfslx = 2 and (CONVERT(g.gcj , SIGNED) >= 60 or CONVERT(g.gbkcj , SIGNED) >= 60))) ";
         List<?> data = hibernateTemplate.find(hsql, sid);
-        return Integer.parseInt(data.get(0).toString());
+        if(data.size()>0) {
+            return Integer.parseInt(data.get(0).toString());
+        }
+        return 0;
     }
 
     /*查询选修学分*/
@@ -104,7 +107,10 @@ public class StudentService {
                 "and g.glx in (1,2) " +
                 "and ((g.gfslx = 1 and (g.gcj in ('及格','中','良','优') or g.gbkcj in ('及格','中','良','优'))) or (g.gfslx = 2 and (CONVERT(g.gcj , SIGNED) >= 60 or CONVERT(g.gbkcj , SIGNED) >= 60))) " ;
         List<?> data = hibernateTemplate.find(hsql,sid);
-        return Integer.parseInt(data.get(0).toString());
+        if(!data.isEmpty()) {
+            return Integer.parseInt(data.get(0).toString());
+        }
+        return 0;
     }
 
     /*查询科目总数,0总科目1清考科目2中兴科目3中兴清考科目*/
@@ -118,6 +124,9 @@ public class StudentService {
             hsql = hsql + "and g.gkcm in ('Java语言基础','Java在移动通信中应用','网页设计','网页设计课程设计','数据库应用技术','JSP应用技术与AJAX','JSP应用技术与AJAX课程设计','SSH应用技术','SSH应用技术课程设计','IPhone/android嵌入式移动开发技术基础','IPhone/android嵌入式移动开发技术','软件测试技术与工具','IT项目管理','IT项目管理课程设计','Web前端技术','IT文档规范与编写','IPhone开发入门','CMMI标准工作流程','JAVA EE商用项目实践','项目开发模型','企业职业素养训练') and (g.gfslx = 1 and g.gcj = '不及格' and g.gbkcj = '不及格') or (g.gfslx = 2 and CONVERT(g.gcj , SIGNED) < 60 and CONVERT(g.gbkcj , SIGNED) < 60)";
         }
         List<?> data = hibernateTemplate.find(hsql,sid);
-        return Integer.parseInt(data.get(0).toString());
+        if(!data.isEmpty()) {
+            return Integer.parseInt(data.get(0).toString());
+        }
+        return 0;
     }
 }

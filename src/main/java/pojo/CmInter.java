@@ -1,6 +1,7 @@
 package pojo;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by LENOVO on 2016/10/20.
@@ -9,7 +10,7 @@ public class CmInter {
     private Integer iid;
     private String iaddress;
     private String itype;
-    private Timestamp itime;
+    private Date itime;
     private Integer isuccess;
     private Integer istate;
     private CmStudent cmStudentBySid;
@@ -40,11 +41,11 @@ public class CmInter {
         this.itype = itype;
     }
 
-    public Timestamp getItime() {
+    public Date getItime() {
         return itime;
     }
 
-    public void setItime(Timestamp itime) {
+    public void setItime(Date itime) {
         this.itime = itime;
     }
 
