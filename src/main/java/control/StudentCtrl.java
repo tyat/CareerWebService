@@ -6,10 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pojo.CmStudent;
+import pojo.EmpStu;
 import pojo.StuGrade;
+import pojo.UnempStu;
 import service.StudentService;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -48,9 +51,9 @@ public class StudentCtrl {
     @ResponseBody
     public List<?> findStu(int sid){
         if(studentService.findStuState(sid)){
-            return (List<?>)studentService.listEmpStudent(sid);
+            return (List<EmpStu>)studentService.listEmpStudent(sid);
         }else if(!studentService.findStuState(sid)){
-            return (List<?>)studentService.listUnempStudent(sid);
+            return (List<UnempStu>)studentService.listUnempStudent(sid);
         }
         return null;
     }
@@ -58,7 +61,7 @@ public class StudentCtrl {
     /*查询学生成绩*/
     @RequestMapping(value = "/findGrade")
     @ResponseBody
-    public StuGrade findGrade(int sid){
+    public StuGrade findGrade(int sid) throws ParseException {
         StuGrade sg = new StuGrade();
         CmStudent cs = studentService.findStuById(sid);
         sg.setSno(cs.getSno());
@@ -83,5 +86,4 @@ public class StudentCtrl {
         sg.setZxqk(studentService.queryZkms(sid,3));
         return sg;
     }
-
 }
